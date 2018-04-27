@@ -43,7 +43,6 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void submit() {
-        // validate
         String phone = et_phone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
             Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();

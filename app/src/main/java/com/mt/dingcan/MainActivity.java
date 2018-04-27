@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.mt.dingcan.myapp.Myapp;
+
 /**
  * Created by admin on 2018/4/27.
  */
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
+                Myapp.activityList.add(this);
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.btn_regist:

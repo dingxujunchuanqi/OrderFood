@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mt.dingcan.myapp.Myapp;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn_login;
@@ -38,9 +40,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
+                finshActivity();
                 submit();
                 break;
         }
+    }
+
+    private void finshActivity() {
+        int size = Myapp.activityList.size();
+        for (int i = 0; i < size; i++) {
+            Myapp.activityList.get(i).finish();
+        }
+        Myapp.activityList.clear();
     }
 
     private void submit() {
