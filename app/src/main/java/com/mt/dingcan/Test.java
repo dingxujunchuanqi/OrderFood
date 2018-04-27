@@ -7,4 +7,7 @@ package com.mt.dingcan;
  */
 
 public class Test {
+ public void    test() {
+
+    }
 }
