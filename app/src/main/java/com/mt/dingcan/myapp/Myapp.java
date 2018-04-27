@@ -1,5 +1,6 @@
 package com.mt.dingcan.myapp;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.lzy.okgo.OkGo;
@@ -7,6 +8,8 @@ import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.store.PersistentCookieStore;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -14,6 +17,7 @@ import java.util.logging.Level;
  */
 
 public class Myapp extends Application {
+    public static List<Activity> activityList = new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();
