@@ -93,6 +93,7 @@ public class ShoppingListFragment extends Fragment implements View.OnClickListen
                 execute(new StringCallback() {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
+                               ToastUtils.showToast(Myapp.getInstance(),s);
                                 try {
                                     if (s != null) {
                                         Gson gson = new Gson();
