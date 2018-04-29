@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mt.dingcan.R;
+import com.mt.dingcan.utils.SharedPreferences;
 
 /**
  * Created by admin on 2018/4/27.
@@ -34,5 +35,8 @@ public class UserFragment extends Fragment {
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         tv_phone = (TextView) view.findViewById(R.id.tv_phone);
         tv_address = (TextView) view.findViewById(R.id.tv_address);
+        tv_name.setText(SharedPreferences.getInstance().getString("username",""));
+        tv_phone.setText(SharedPreferences.getInstance().getString("phone",""));
+        tv_address.setText(SharedPreferences.getInstance().getString("address",""));
     }
 }

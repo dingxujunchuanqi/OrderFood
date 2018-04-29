@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单号 : "
+            android:textColor="@color/colorPrimary"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/order_mum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2455345364674 : "
+            android:textColor="@color/colorPrimary"
+            android:textSize="17dp" />
+    </LinearLayout>
+
+    <com.mt.dingcan.view.MyListView
+        android:id="@+id/lv_allorder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

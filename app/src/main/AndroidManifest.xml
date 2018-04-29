@@ -2,13 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mt.dingcan">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".myapp.Myapp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_desk"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".myapp.Myapp"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -18,11 +22,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegistActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistActivity" />
         <activity
             android:name=".ContentActivty"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".PaySucceedActivity"/>
     </application>
 
 </manifest>

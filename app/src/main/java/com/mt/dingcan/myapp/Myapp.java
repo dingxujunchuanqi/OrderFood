@@ -17,11 +17,15 @@ import java.util.logging.Level;
  */
 
 public class Myapp extends Application {
+    private static Myapp app;
     public static List<Activity> activityList = new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();
         initOkgo();
+    }
+    public Myapp() {
+        app = this;
     }
 
     private void initOkgo() {
@@ -71,5 +75,12 @@ public class Myapp extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static  Myapp getInstance() {
+        if (app == null) {
+            app = new Myapp();
+        }
+        return app;
     }
 }

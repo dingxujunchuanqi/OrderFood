@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="价格:"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_total_price"
@@ -52,14 +53,18 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/tv_price_name"
             android:text="150"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_deal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:text="下单" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shape_but"
+            android:text="下  单" />
     </RelativeLayout>
 </LinearLayout>

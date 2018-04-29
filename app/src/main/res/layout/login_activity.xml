@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@mipmap/bag"
     tools:context="com.mt.dingcan.LoginActivity">
 
     <TextView
@@ -24,9 +24,9 @@
         android:padding="10dp">
 
         <ImageView
-            android:layout_width="35dp"
+            android:layout_width="25dp"
             android:layout_height="35dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/user" />
 
         <EditText
             android:id="@+id/et_name"
@@ -56,9 +56,9 @@
         android:padding="10dp">
 
         <ImageView
-            android:layout_width="35dp"
+            android:layout_width="25dp"
             android:layout_height="35dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/psw" />
 
         <EditText
             android:inputType="textPassword"
@@ -84,9 +84,10 @@
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="48dp"
-        android:text="登录" />
+        android:background="@drawable/shape_but"
+        android:text="登  录" />
 </LinearLayout>
