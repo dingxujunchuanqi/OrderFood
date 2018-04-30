@@ -29,6 +29,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".OrderActivity" />
         <activity android:name=".PaySucceedActivity"/>
+        <activity android:name=".ShipmentActivity"/>
     </application>
 
 </manifest>

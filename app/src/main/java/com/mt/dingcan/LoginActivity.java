@@ -132,14 +132,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences.getInstance().putString("phone",registerBean.getReturnData().getPhone());
         SharedPreferences.getInstance().putString("userid",registerBean.getReturnData().getUserid());
         SharedPreferences.getInstance().putString("address",registerBean.getReturnData().getAddress());
-     /*   SharedPreferences sp= getSharedPreferences("userinfo",MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putString("username",registerBean.getReturnData().getUsername());
-        edit.putString("phone",registerBean.getReturnData().getPhone());
-        edit.putString("userid",registerBean.getReturnData().getUserid());
-        edit.putString("address",registerBean.getReturnData().getAddress());
-        edit.commit();*/
-
     }
 
 

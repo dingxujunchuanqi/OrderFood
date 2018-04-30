@@ -17,5 +17,6 @@ public class HttpNetApi {
     public static final String queryShopCart= BaseApi+"queryShopCart/";
     public static final String XaddOrder=BaseApi+"addOrder/";//订单
     public static final String getAllOrderList=BaseApi+"getAllOrderList/";//获取所有订单
-    public static final String placeOrder=BaseApi+"placeOrder/";
+    public static final String placeOrder=BaseApi+"placeOrder/";//支付
+    public static final String signin=BaseApi+"signin/";//确认签收
 }

@@ -1,5 +1,4 @@
 package com.mt.dingcan;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -20,6 +18,9 @@ import com.mt.dingcan.utils.AssetsLoadingDialog;
 import com.mt.dingcan.utils.SharedPreferences;
 import com.mt.dingcan.utils.ToastUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -29,7 +30,7 @@ import okhttp3.Response;
  * @project dingcan
  */
 
-public class OrderActivity extends AppCompatActivity implements View.OnClickListener {
+public class OrderActivity extends AppCompatActivity implements View.OnClickListener ,OrderAdapter.OnChildClickListener{
     private TextView tvPay;
     private ListView lvOrder;
     private TextView tv_total_price;
@@ -46,9 +47,15 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initData() {
-        if (getIntent()!=null){
+        if (getIntent() != null) {
             totalprice = getIntent().getStringExtra("totalprice");
             orderid = getIntent().getStringExtra("orderid");
+        }
+        if (totalprice.contains(".")) {
+            String substring = totalprice.substring(0, totalprice.indexOf(".") + 2);
+            tv_total_price.setText("总价 ：" + substring + " ¥");
+        } else {
+            tv_total_price.setText("总价 ：" + totalprice + " ¥");
         }
         getAllOrderList();
     }
@@ -66,7 +73,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                             allOrderBean = gson.fromJson(s, AllOrderBean.class);
                             if (allOrderBean.getReturnCode().equals("1")) {
                                 ToastUtils.showToast(Myapp.getInstance(), "请求成功");
-                                System.out.println("--------------------"+s);
+                                System.out.println("--------------------" + s);
                                 showData(allOrderBean);
                             } else {
                                 ToastUtils.showToast(Myapp.getInstance(), "请求失败");
@@ -84,8 +91,36 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void showData(AllOrderBean allOrderBean) {
-        OrderAdapter adapter =new OrderAdapter(this,allOrderBean.getReturnData());
-         lvOrder.setAdapter(adapter);
+        OrderAdapter adapter = new OrderAdapter(this, allOrderBean.getReturnData());
+        lvOrder.setAdapter(adapter);
+        adapter.setOnChildClickListener(this);
+    }
+
+    /**
+     * 签收
+     *
+     * @date 创建时间 2018/4/30
+     * @author dingxujun
+     */
+    private void signin(String orderid) {
+        OkGo.post(HttpNetApi.signin).
+                params("orderid", orderid).execute(new StringCallback() {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String returnCode = (String) jsonObject.get("returnCode");
+                    if (returnCode.equals("1")) {
+                        ToastUtils.showToast(Myapp.getInstance(),"开始配送");
+                        Intent intent = new Intent(Myapp.getInstance(), ShipmentActivity.class);
+                        startActivity(intent);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -94,7 +129,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         tvPay.setOnClickListener(this);
         lvOrder = (ListView) findViewById(R.id.lv_order);
         tv_total_price = (TextView) findViewById(R.id.tv_total_price);
-        tv_total_price.setText("总价 ："+totalprice+" ¥");
     }
 
 
@@ -109,18 +143,18 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void placeOrder() {
-        AssetsLoadingDialog.showProgressDialog(this,"正在支付中....");
+        AssetsLoadingDialog.showProgressDialog(this, "正在支付中....");
         OkGo.post(HttpNetApi.placeOrder).
-                params("userid",SharedPreferences.getInstance().getString("userid",""))
-                .params("orderid",allOrderBean.getReturnData().get(0).getOrderid()).execute(new StringCallback() {
+                params("userid", SharedPreferences.getInstance().getString("userid", ""))
+                .params("orderid", orderid).execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
-                if (s!=null){
-                    Gson gson =new Gson();
+                if (s != null) {
+                    Gson gson = new Gson();
                     PayBean payBean = gson.fromJson(s, PayBean.class);
-                    if (payBean.getReturnCode().equals("1")){
-                        ToastUtils.showToast(Myapp.getInstance(),"支付成功....");
-                        Intent intent =new Intent(OrderActivity.this,PaySucceedActivity.class);
+                    if (payBean.getReturnCode().equals("1")) {
+                        ToastUtils.showToast(Myapp.getInstance(), "支付成功....");
+                        Intent intent = new Intent(OrderActivity.this, PaySucceedActivity.class);
                         startActivity(intent);
                         AssetsLoadingDialog.dismiss();
                     }
@@ -130,5 +164,14 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-
+    @Override
+    public void onChildClick(String status,String orderid) {
+        if (status.equals("1")){
+            return;
+        }else if (status.equals("4")){
+            signin(orderid);
+        }else {
+            return;
+        }
+    }
 }

@@ -1,11 +1,14 @@
 package com.mt.dingcan.adapter;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -13,6 +16,7 @@ import com.mt.dingcan.R;
 import com.mt.dingcan.entity.AddShopCartbean;
 import com.mt.dingcan.entity.QueryShopCartBean;
 import com.mt.dingcan.httpnet.HttpNetApi;
+import com.mt.dingcan.utils.ImageType;
 import com.mt.dingcan.utils.ToastUtils;
 
 import java.util.List;
@@ -26,7 +30,7 @@ import okhttp3.Response;
  */
 
 public class StoreAdapter extends BaseAdapter {
-    public  List<QueryShopCartBean.ReturnDataBean> list;
+    public List<QueryShopCartBean.ReturnDataBean> list;
     private Context context;
 
     public StoreAdapter(Context context, List<QueryShopCartBean.ReturnDataBean> list) {
@@ -61,6 +65,7 @@ public class StoreAdapter extends BaseAdapter {
             holder.tv_price = view.findViewById(R.id.tv_price);
             holder.add_layout = view.findViewById(R.id.add_layout);
             holder.delete_shop = view.findViewById(R.id.delete_shop);
+            holder.iv_pic = view.findViewById(R.id.iv_pic);
             view.setTag(holder);
         } else {
             holder = (MyHolder) view.getTag();
@@ -72,10 +77,14 @@ public class StoreAdapter extends BaseAdapter {
         holder.tv_price.setText(list.get(i).getPrice() + "¥");
         holder.tv_name.setText(list.get(i).getVegetname());
         holder.tv_type.setText(list.get(i).getNum() + "");
+
+        ImageType.setImage(context, list.get(i), holder.iv_pic);
+
+
         MyHolder finalHolder1 = holder;
         holder.delete_shop.setOnClickListener(v -> {
-               QueryShopCartBean.ReturnDataBean itemBean = list.get(i);
-               int num = itemBean.getNum();
+            QueryShopCartBean.ReturnDataBean itemBean = list.get(i);
+            int num = itemBean.getNum();
             if (num > 0) {
                 MyHolder finalHolder = finalHolder1;
                 OkGo.post(HttpNetApi.deleShopCart).
@@ -83,16 +92,16 @@ public class StoreAdapter extends BaseAdapter {
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
-                              //  int mumber = itemBean.getNum();
-                              //  mumber = mumber - 1;
+                                //  int mumber = itemBean.getNum();
+                                //  mumber = mumber - 1;
                                 Gson gson = new Gson();
                                 AddShopCartbean bean = gson.fromJson(s, AddShopCartbean.class);
                                 if (bean.getReturnCode().equals("1")) {
-                                   // itemBean.setNum(mumber);
-                                    ToastUtils.showToast(context,"删除成功");
+                                    // itemBean.setNum(mumber);
+                                    ToastUtils.showToast(context, "删除成功");
                                     EventBus.getDefault().post("delete");
-                                 //   finalHolder.tv_type.setText("" + itemBean.getNum());
-                                 //   notifyDataSetChanged();
+                                    //   finalHolder.tv_type.setText("" + itemBean.getNum());
+                                    //   notifyDataSetChanged();
                                 }
                             }
                         });
@@ -100,7 +109,6 @@ public class StoreAdapter extends BaseAdapter {
                 ToastUtils.showToast(context, "商品数量已经是0了");
             }
         });
-
 
 
         return view;
@@ -113,6 +121,6 @@ public class StoreAdapter extends BaseAdapter {
         private TextView delete_shop;
         private TextView tv_price;
         private LinearLayout add_layout;
-
+        private ImageView iv_pic;
     }
 }

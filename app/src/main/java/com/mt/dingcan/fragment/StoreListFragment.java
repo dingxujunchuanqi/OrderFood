@@ -1,6 +1,5 @@
 package com.mt.dingcan.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -60,14 +59,9 @@ public class StoreListFragment extends Fragment implements View.OnClickListener 
         context = getContext();
         view = LayoutInflater.from(context).inflate(R.layout.search_frag, null);
         initView(view);
-        setViewState();
         setListener();
         initData();
         return view;
-    }
-
-    private void setViewState() {
-        //setTextColor(R.color.tv_select_color, R.color.tv_unselect_color, R.color.tv_unselect_color);
     }
 
     private void setListener() {
@@ -96,15 +90,6 @@ public class StoreListFragment extends Fragment implements View.OnClickListener 
                 InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 submit();
-                break;
-            case R.id.tv_name:
-              //  setTextColor(R.color.tv_select_color, R.color.tv_unselect_color, R.color.tv_unselect_color);
-                break;
-            case R.id.tv_type:
-             //   setTextColor(R.color.tv_unselect_color, R.color.tv_select_color, R.color.tv_unselect_color);
-                break;
-            case R.id.tv_store:
-               // setTextColor(R.color.tv_unselect_color, R.color.tv_unselect_color, R.color.tv_select_color);
                 break;
         }
     }
@@ -196,13 +181,6 @@ public class StoreListFragment extends Fragment implements View.OnClickListener 
         // TODO validate success, do something
     }
 
-    @SuppressLint("ResourceType")
-    private void setTextColor(int select, int unselect, int unselect1) {
-        tv_name.setTextColor(getResources().getColor(select));
-        tv_type.setTextColor(getResources().getColor(unselect));
-        tv_store.setTextColor(getResources().getColor(unselect1));
-    }
-
     private void initData() {
         queryCanpinType();
         queryCanpin(null, null, null);
@@ -282,7 +260,6 @@ public class StoreListFragment extends Fragment implements View.OnClickListener 
                         } else {
                             ToastUtils.showToast(context, "网络异常");
                         }
-                        System.out.println("---------------------------");
                         AssetsLoadingDialog.dismiss();
                     }
 
@@ -303,10 +280,8 @@ public class StoreListFragment extends Fragment implements View.OnClickListener 
      * @author dingxujun
      */
     private void showAlldata(QueryCanpinBean bean) {
-
         QueryAdapter adapter = new QueryAdapter(context, bean.getReturnData());
         lv_store.setAdapter(adapter);
-
 
     }
 

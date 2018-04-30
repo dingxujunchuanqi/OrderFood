@@ -1,14 +1,15 @@
 package com.mt.dingcan.adapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mt.dingcan.R;
 import com.mt.dingcan.entity.AllOrderBean;
+import com.mt.dingcan.utils.ImageType;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 
 public class OrderTwoAdapter extends BaseAdapter {
-    private final  List<AllOrderBean.ReturnDataBean.OrderinfoBean> list;
+    private final List<AllOrderBean.ReturnDataBean.OrderinfoBean> list;
     private Context context;
 
     public OrderTwoAdapter(Context context, List<AllOrderBean.ReturnDataBean.OrderinfoBean> list) {
@@ -53,6 +54,7 @@ public class OrderTwoAdapter extends BaseAdapter {
             holder.tv_type = view.findViewById(R.id.tv_type);
             holder.tv_price = view.findViewById(R.id.tv_price);
             holder.tv_num = view.findViewById(R.id.tv_num);
+            holder.iv_pic = view.findViewById(R.id.iv_pic);
             view.setTag(holder);
         } else {
             holder = (MyHolder) view.getTag();
@@ -61,8 +63,10 @@ public class OrderTwoAdapter extends BaseAdapter {
         holder.tv_shop.setText(bean.getShopname());
         holder.tv_name.setText(bean.getVegetname());
         holder.tv_type.setText(bean.getTypename());
-        holder.tv_price.setText(bean.getPrice()+" ¥");
+        holder.tv_price.setText(bean.getPrice() + " ¥");
         holder.tv_num.setText(bean.getNum());
+
+        ImageType.setImage1(context,bean,holder.iv_pic);
         return view;
     }
 
@@ -72,5 +76,6 @@ public class OrderTwoAdapter extends BaseAdapter {
         private TextView tv_price;
         private TextView tv_type;
         private TextView tv_shop;
+        private ImageView iv_pic;
     }
 }

@@ -93,7 +93,6 @@ public class ShoppingListFragment extends Fragment implements View.OnClickListen
                 execute(new StringCallback() {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
-                               ToastUtils.showToast(Myapp.getInstance(),s);
                                 try {
                                     if (s != null) {
                                         Gson gson = new Gson();
@@ -168,7 +167,7 @@ public class ShoppingListFragment extends Fragment implements View.OnClickListen
             DataBean porderBean = new DataBean();
             porderBean.setNum(bean.getNum());
             porderBean.setPrice(bean.getPrice());
-            porderBean.setVegetid(bean.getId() + "");
+            porderBean.setVegetid(bean.getVegetid());
             dataBeanList.add(porderBean);
         }
 

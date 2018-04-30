@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -14,6 +15,7 @@ import com.mt.dingcan.R;
 import com.mt.dingcan.entity.AddShopCartbean;
 import com.mt.dingcan.entity.QueryCanpinBean;
 import com.mt.dingcan.httpnet.HttpNetApi;
+import com.mt.dingcan.utils.ImageType;
 import com.mt.dingcan.utils.SharedPreferences;
 
 import java.util.List;
@@ -64,6 +66,7 @@ public class QueryAdapter extends BaseAdapter {
             holder.tv_price = view.findViewById(R.id.tv_price);
             holder.btn_add = view.findViewById(R.id.btn_add);
             holder.delete_shop = view.findViewById(R.id.delete_shop);
+            holder.iv_pic = view.findViewById(R.id.iv_pic);
 
             view.setTag(holder);
         } else {
@@ -75,6 +78,9 @@ public class QueryAdapter extends BaseAdapter {
         holder.tv_type.setText(list.get(i).getTypename());
         holder.tv_shop.setText(list.get(i).getShopname());
         holder.tv_price.setText(String.valueOf(list.get(i).getPrice())+" ¥");
+
+
+        ImageType.setImage2(context,list.get(i),holder.iv_pic);
 
         finalHolder = holder;
         holder.btn_add.setOnClickListener(v -> {
@@ -111,5 +117,6 @@ public class QueryAdapter extends BaseAdapter {
         private TextView tv_price;
         private TextView btn_add;
         private TextView delete_shop;
+        private ImageView iv_pic;
     }
 }

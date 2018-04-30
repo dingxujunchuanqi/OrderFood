@@ -1,5 +1,4 @@
 package com.mt.dingcan.entity;
-
 import java.util.List;
 
 /**
@@ -61,6 +60,14 @@ public class QueryShopCartBean {
         private int num;
         private int id;
         private String typename;
+        private String vegetid;
+
+        public String getVegetid() {
+            return vegetid;
+        }
+        public void setVegetid(String vegetid) {
+            this.vegetid = vegetid;
+        }
 
         public String getVegetname() {
             return vegetname;
