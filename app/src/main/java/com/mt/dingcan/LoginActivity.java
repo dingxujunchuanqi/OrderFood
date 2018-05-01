@@ -95,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
+                System.out.println("------------------------------------");
                 Gson gson =new Gson();
                 LoginBean loginBean = gson.fromJson(s, LoginBean.class);
                 if (loginBean.getReturnCode().equals("1")){
