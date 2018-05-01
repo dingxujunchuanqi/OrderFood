@@ -209,7 +209,6 @@ public class StoreListFragment extends Fragment implements View.OnClickListener 
                                 setNameSpiner();
                                 setShopSpiner();
                                 setTypeSpiner();
-
                             } else {
                                 ToastUtils.showToast(Myapp.getInstance(), "参数异常");
                             }
@@ -253,14 +252,20 @@ public class StoreListFragment extends Fragment implements View.OnClickListener 
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Gson gson = new Gson();
-                        QueryCanpinBean Bean = gson.fromJson(s, QueryCanpinBean.class);
-                        if (Bean.getReturnCode().equals("1")) {
-                            showAlldata(Bean);
-                        } else {
+                        try {
+                            Gson gson = new Gson();
+                            QueryCanpinBean Bean = gson.fromJson(s, QueryCanpinBean.class);
+                            if (Bean.getReturnCode().equals("1")) {
+                                showAlldata(Bean);
+                            } else {
+                                ToastUtils.showToast(context, "网络异常");
+                            }
+                            AssetsLoadingDialog.dismiss();
+                        } catch (Exception e) {
                             ToastUtils.showToast(context, "网络异常");
+                            AssetsLoadingDialog.dismiss();
                         }
-                        AssetsLoadingDialog.dismiss();
+
                     }
 
                     @Override
