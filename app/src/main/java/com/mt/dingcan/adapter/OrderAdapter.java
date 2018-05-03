@@ -1,7 +1,6 @@
 package com.mt.dingcan.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +23,12 @@ public class OrderAdapter extends BaseAdapter {
     private final List<AllOrderBean.ReturnDataBean> list;
     private Context context;
     private OnChildClickListener listener;
+    private final OrderTwoAdapter twoAdapter;
 
     public OrderAdapter(Context context, List<AllOrderBean.ReturnDataBean> list) {
         this.list = list;
         this.context = context;
+        twoAdapter = new OrderTwoAdapter(context);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class OrderAdapter extends BaseAdapter {
         }
         AllOrderBean.ReturnDataBean bean = list.get(i);
         holder.order_mum.setText(bean.getOrderid());
-        OrderTwoAdapter twoAdapter = new OrderTwoAdapter(context, bean.getOrderinfo());
+        twoAdapter.addAll(bean.getOrderinfo());
         holder.lv_allorder.setAdapter(twoAdapter);
 
         holder.lv_allorder.setFocusable(false);

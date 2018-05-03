@@ -1,4 +1,5 @@
 package com.mt.dingcan.adapter;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +21,16 @@ import java.util.List;
  */
 
 public class OrderTwoAdapter extends BaseAdapter {
-    private final List<AllOrderBean.ReturnDataBean.OrderinfoBean> list;
+    private List<AllOrderBean.ReturnDataBean.OrderinfoBean> list;
     private Context context;
 
-    public OrderTwoAdapter(Context context, List<AllOrderBean.ReturnDataBean.OrderinfoBean> list) {
-        this.list = list;
+    public OrderTwoAdapter(Context context) {
         this.context = context;
+    }
+
+
+    public void addAll(List<AllOrderBean.ReturnDataBean.OrderinfoBean> list) {
+        this.list = list;
     }
 
     @Override
@@ -66,7 +71,7 @@ public class OrderTwoAdapter extends BaseAdapter {
         holder.tv_price.setText(bean.getPrice() + " ¥");
         holder.tv_num.setText(bean.getNum());
 
-        ImageType.setImage1(context,bean,holder.iv_pic);
+        ImageType.setImage1(context, bean, holder.iv_pic);
         return view;
     }
 
