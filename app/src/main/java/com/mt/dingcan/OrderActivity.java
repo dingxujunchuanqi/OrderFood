@@ -17,6 +17,7 @@ import com.mt.dingcan.myapp.Myapp;
 import com.mt.dingcan.utils.AssetsLoadingDialog;
 import com.mt.dingcan.utils.SharedPreferences;
 import com.mt.dingcan.utils.ToastUtils;
+import com.mt.dingcan.view.OrderListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ import okhttp3.Response;
 
 public class OrderActivity extends AppCompatActivity implements View.OnClickListener ,OrderAdapter.OnChildClickListener{
     private TextView tvPay;
-    private ListView lvOrder;
+    private OrderListView lvOrder;
     private TextView tv_total_price;
     private String totalprice;
     private String orderid;
@@ -62,7 +63,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void getAllOrderList() {
-        AssetsLoadingDialog.showProgressDialog(this, "拼命加载中....");
         OkGo.post(HttpNetApi.getAllOrderList).
                 params("userid", SharedPreferences.getInstance().getString("userid", ""))
                 .execute(new StringCallback() {
@@ -78,8 +78,9 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                             } else {
                                 ToastUtils.showToast(Myapp.getInstance(), "请求失败");
                             }
+                            AssetsLoadingDialog.dismiss();
                         }
-                        AssetsLoadingDialog.dismiss();
+
                     }
 
                     @Override
@@ -125,9 +126,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
+        AssetsLoadingDialog.showProgressDialog(this, "拼命加载中....");
         tvPay = (TextView) findViewById(R.id.tv_pay);
         tvPay.setOnClickListener(this);
-        lvOrder = (ListView) findViewById(R.id.lv_order);
+        lvOrder = (OrderListView) findViewById(R.id.lv_order);
         tv_total_price = (TextView) findViewById(R.id.tv_total_price);
     }
 
